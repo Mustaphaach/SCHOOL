@@ -14,9 +14,7 @@ import FaqBanner from './components/FaqBanner';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppBot from './components/WhatsAppBot';
-
-
-import Preloader from './components/Preloader'; // <-- Add this import
+import Preloader from './components/Preloader';
 
 const Home: React.FC = () => (
   <>
@@ -31,15 +29,14 @@ const Home: React.FC = () => (
 );
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true); // <-- Loader state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading (change to your actual data/api logic if needed)
     const timer = setTimeout(() => setLoading(false), 1800);
     return () => clearTimeout(timer);
   }, []);
 
-  if (loading) return <Preloader />; // Show preloader until done
+  if (loading) return <Preloader />;
 
   return (
     <div className="bg-white text-gray-800">
@@ -51,15 +48,13 @@ const App: React.FC = () => {
           <Route path="/corporate" element={<Corporate />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
+
         </Routes>
       </main>
       <WhatsAppBot />
       <Footer />
-      
     </div>
   );
 };
-// this code is for whatsssap floating button: 
-
 
 export default App;
