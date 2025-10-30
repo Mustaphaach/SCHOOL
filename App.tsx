@@ -13,7 +13,9 @@ import Testimonials from './components/Testimonials';
 import FaqBanner from './components/FaqBanner';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import { WhatsAppIcon } from './components/icons/SocialIcons';
+import WhatsAppBot from './components/WhatsAppBot';
+
+
 import Preloader from './components/Preloader'; // <-- Add this import
 
 const Home: React.FC = () => (
@@ -51,14 +53,13 @@ const App: React.FC = () => {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
+      <WhatsAppBot />
       <Footer />
-      <div className="fixed bottom-6 right-6 z-50">
-        <a href="#" className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center">
-          <WhatsAppIcon className="w-8 h-8" />
-        </a>
-      </div>
+      
     </div>
   );
 };
+// this code is for whatsssap floating button: 
+
 
 export default App;
