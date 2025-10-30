@@ -1,99 +1,118 @@
-import React, { useState, useEffect } from "react";
-import { FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from "react";
+import { FaStar } from "react-icons/fa";
 
 const TESTIMONIALS = [
   {
     image: "//c2.staticflickr.com/8/7310/buddyicons/24846422@N06_r.jpg",
-    name: "Lisa Redfern",
-    quote: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It is a long established fact that a reader will be distracted by the readable its layout.",
+    name: "Fatima",
+    quote: "Great institute! The teachers are patient and friendly, and the environment is very welcoming. I’ve improved a lot in reading, writing, and speaking Arabic. Highly recommend it!",
     rating: 5,
   },
   {
     image: "https://i.postimg.cc/ydBjdm20/michael-dam-m-EZ3-Po-FGs-k-unsplash-1.jpg",
-    name: "Cassi",
-    quote: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It is a long established fact that a reader will be distracted by the readable its layout.",
+    name: "Sara",
+    quote: "I joined this institute in Dubai three months ago, and it’s been an amazing experience. The teachers are supportive, and I’ve made great progress in Arabic!",
     rating: 4,
   },
   {
     image: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/451270/profile/profile-80.jpg",
-    name: "Md Nahidul",
-    quote: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It is a long established fact that a reader will be distracted by the readable its layout.",
+    name: "Ahmed",
+    quote: "I’ve been learning Arabic here for a few months, and the progress is incredible. The teachers make every lesson clear, engaging, and enjoyable!",
     rating: 5,
   },
 ];
 
-const getPrevIdx = (idx: number, arr: any[]) => (idx === 0 ? arr.length - 1 : idx - 1);
-const getNextIdx = (idx: number, arr: any[]) => (idx === arr.length - 1 ? 0 : idx + 1);
-
 const Testimonials: React.FC = () => {
   const [current, setCurrent] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const intervalRef = useRef<any>(null);
 
-  const prev = () => setCurrent(getPrevIdx(current, TESTIMONIALS));
-  const next = () => setCurrent(getNextIdx(current, TESTIMONIALS));
-
+  // Auto-loop effect
   useEffect(() => {
-    const interval = setInterval(() => next(), 6000);
-    return () => clearInterval(interval);
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setCurrent((c) => (c + 1) % TESTIMONIALS.length);
+    }, 6000);
+    return () => clearInterval(intervalRef.current);
   }, [current]);
 
-  const prevThumb = TESTIMONIALS[getPrevIdx(current, TESTIMONIALS)];
-  const nextThumb = TESTIMONIALS[getNextIdx(current, TESTIMONIALS)];
+  // 3D pop effect on main image
+  useEffect(() => {
+    setAnimating(true);
+    const timeout = setTimeout(() => setAnimating(false), 800);
+    return () => clearTimeout(timeout);
+  }, [current]);
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-
-        <h2 className="text-4xl font-semibold text-[#2b2b5c] text-center mb-12 relative w-full flex flex-col items-center">
+    <section className="py-20 bg-white w-full">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        {/* Section Title */}
+        <h2 className="text-4xl font-semibold text-[#2b2b5c] text-center mb-4 relative w-full flex flex-col items-center">
           What Clients Say
           <span className="block mt-4 h-1 w-32 bg-[#4d7abb] rounded-full"></span>
-          <span className="absolute left-1/2 -bottom-3 w-4 h-4 -translate-x-1/2 rounded-full bg-[#4d7abb] border-4 border-white"></span>
         </h2>
-
-        <div className="relative max-w-2xl mx-auto flex flex-col items-center">
-          {/* Main Feedback */}
-          <div className="feedback-slider-item relative py-12 px-3 flex flex-col items-center text-center transition-all duration-700 shadow-lg bg-gray-50 rounded-2xl mb-12 mt-10">
-            <img src={TESTIMONIALS[current].image} className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-6" alt="Customer" />
-            <h3 className="customer-name text-xl font-bold mb-3 text-[#2b2b5c]">{TESTIMONIALS[current].name}</h3>
-            <p className="text-gray-700 mb-6">{TESTIMONIALS[current].quote}</p>
-            <span className="customer-rating bg-gray-200 border-4 border-white text-[#2b2b5c] font-extrabold absolute right-8 top-16 shadow-lg w-12 h-12 flex items-center justify-center rounded-full text-lg">
-              {TESTIMONIALS[current].rating}
-              <span className="ml-1 inline-flex"><FaStar color="#4d7abb" size={18} /></span>
-            </span>
+        <div className="relative flex justify-center items-center w-full max-w-3xl mx-auto mt-10">
+          {/* Main content card */}
+          <div className="bg-gradient-to-br from-[#f4f8fb] via-white to-[#e9f0fa] rounded-2xl shadow-2xl px-8 py-10 w-full max-w-xl flex flex-col items-center text-center relative z-10">
+            <div className="flex flex-col items-center">
+              <div
+                className="transition-all duration-700"
+                style={{
+                  transform: animating
+                    ? "scale(1.22) rotateY(7deg) rotateZ(-4deg) translateZ(0)"
+                    : "scale(1.0) rotateY(0deg) rotateZ(0deg)",
+                  boxShadow: animating
+                    ? "0 12px 54px 0 #4d7abb66, 0 2px 16px #4d7abb44"
+                    : "0 8px 24px #4d7abb22",
+                  zIndex: 10,
+                  borderRadius: "9999px",
+                }}
+              >
+                <img
+                  src={TESTIMONIALS[current].image}
+                  alt={TESTIMONIALS[current].name}
+                  className="w-24 h-24 rounded-full object-cover border-2 border-[#4d7abb]"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-[#2b2b5c] mb-1">{TESTIMONIALS[current].name}</h3>
+              <div className="flex items-center justify-center mb-4">
+                {[...Array(TESTIMONIALS[current].rating)].map((_, i) =>
+                  <span key={i} className="mx-0.5"><FaStar color="#4d7abb" /></span>
+                )}
+              </div>
+              <blockquote className="italic text-xl text-[#232345] font-medium bg-white rounded-lg px-6 py-4 shadow transition">
+                “{TESTIMONIALS[current].quote}”
+              </blockquote>
+            </div>
           </div>
-          {/* Side thumbs */}
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
-            <button className="thumb-prev flex flex-col items-center group" onClick={prev}>
-              <span className="block w-16 h-16 bg-white rounded-full shadow hover:opacity-80 overflow-hidden mb-1 border-2 border-lime-200">
-                <img src={prevThumb.image} alt={prevThumb.name} className="w-full h-full object-cover rounded-full" />
-              </span>
-              <span className="customer-rating bg-gray-200 border-2 border-white text-[#2b2b5c] inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold">
-                {prevThumb.rating}
-                <span className="ml-1 inline-flex"><FaStar color="#4d7abb" size={14} /></span>
-              </span>
-              <span className="mt-2"><FaChevronLeft color="#232345" size={22} /></span>
-            </button>
-          </div>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
-            <button className="thumb-next flex flex-col items-center group" onClick={next}>
-              <span className="block w-16 h-16 bg-white rounded-full shadow hover:opacity-80 overflow-hidden mb-1 border-2 border-lime-200">
-                <img src={nextThumb.image} alt={nextThumb.name} className="w-full h-full object-cover rounded-full" />
-              </span>
-              <span className="customer-rating bg-gray-200 border-2 border-white text-[#2b2b5c] inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold">
-                {nextThumb.rating}
-                <span className="ml-1 inline-flex"><FaStar color="#4d7abb" size={14} /></span>
-              </span>
-              <span className="mt-2"><FaChevronRight color="#232345" size={22} /></span>
-            </button>
-          </div>
-          {/* Navigation dots */}
-          <div className="flex justify-center items-center mt-8">
-            {TESTIMONIALS.map((_, idx) => (
+          {/* Overlapped vertical avatars (right, 50% overlap) - DESKTOP ONLY */}
+          <div className="hidden md:flex flex-col items-center absolute right-[-70px] top-1/2 -translate-y-1/2 z-20">
+            {TESTIMONIALS.map((t, idx) => (
               <button
                 key={idx}
-                className={`mx-1 w-4 h-4 rounded-full border border-lime-400 ${current === idx ? 'bg-[#4d7abb]' : 'bg-gray-200 hover:bg-lime-200'}`}
                 onClick={() => setCurrent(idx)}
-                aria-label={`Go to testimonial ${idx + 1}`}
-              />
+                className={`appearance-none 
+                  ${current === idx ? "border-[#4d7abb] scale-110" : "border-transparent opacity-90 hover:opacity-100"} 
+                  transition mb-[-38px] border-2 focus:outline-none`}
+                style={{
+                  boxShadow:
+                    current === idx ? "0 0 0 5px #4d7abb45" : "",
+                  zIndex: current === idx ? 2 : 1,
+                  borderRadius: "9999px",
+                  background: "none",
+                }}
+                aria-label={`Show testimonial ${t.name}`}
+              >
+                <img
+                  src={t.image}
+                  alt={t.name}
+                  className={`w-16 h-16 rounded-full object-cover shadow-lg`}
+                  style={{
+                    borderRadius: "9999px",
+                    transition: "all 0.2s",
+                  }}
+                />
+              </button>
             ))}
           </div>
         </div>

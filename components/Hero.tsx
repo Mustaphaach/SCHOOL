@@ -38,7 +38,8 @@ const Hero: React.FC = () => {
               </Link>
             </div>
 
-            <div className="flex items-center gap-5 justify-center lg:justify-start mt-12">
+            {/* Hide avatars and enrolled message on mobile */}
+            <div className="sm:flex items-center gap-5 justify-center lg:justify-start mt-12 hidden">
               <div className="flex -space-x-4">
                 {CUSTOMER_IMAGES.map((src, index) => (
                   <img
@@ -56,8 +57,8 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Image (with fade-up animation) */}
-          <div className={`flex items-center justify-center transition-all duration-1000 ease-out transform
+          {/* Hide main image on mobile */}
+          <div className={`sm:flex hidden items-center justify-center transition-all duration-1000 ease-out transform
             ${showImage ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <img
               src="https://i.postimg.cc/Wp5tPzgf/Design-sans-titre-15.png"
