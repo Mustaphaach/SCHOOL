@@ -48,7 +48,6 @@ const App: React.FC = () => {
           <Route path="/corporate" element={<Corporate />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
-
         </Routes>
       </main>
       <WhatsAppBot />

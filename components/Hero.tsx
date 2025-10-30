@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const CUSTOMER_IMAGES = [
   "https://prayagtandon.github.io/Omnifood-Project/Hero-section/img/customers/customer-1.jpg",
@@ -29,12 +30,12 @@ const Hero: React.FC = () => {
               Our young learners at Manart Alofoq impress everyone with their fluent Arabic.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
-              <a href="/contact" className="w-full sm:w-auto text-center bg-[#2b2b5c] hover:bg-[#4875b3] text-white font-bold py-4 px-8 rounded-full text-lg transition-colors duration-300 shadow">
+              <Link to="/contact" className="w-full sm:w-auto text-center bg-[#2b2b5c] hover:bg-[#4875b3] text-white font-bold py-4 px-8 rounded-full text-lg transition-colors duration-300 shadow">
                 Join us
-              </a>
-              <a href="/about" className="w-full sm:w-auto text-center bg-transparent border-2 border-white hover:bg-white hover:text-[#4875b3] text-white font-bold py-4 px-8 rounded-full text-lg transition-colors duration-300 shadow">
+              </Link>
+              <Link to="/about" className="w-full sm:w-auto text-center bg-transparent border-2 border-white hover:bg-white hover:text-[#4875b3] text-white font-bold py-4 px-8 rounded-full text-lg transition-colors duration-300 shadow">
                 About Us
-              </a>
+              </Link>
             </div>
 
             <div className="flex items-center gap-5 justify-center lg:justify-start mt-12">
@@ -70,4 +71,5 @@ const Hero: React.FC = () => {
     </section>
   );
 };
+
 export default Hero;
