@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const FaqBanner: React.FC = () => {
   return (
@@ -9,12 +10,12 @@ const FaqBanner: React.FC = () => {
           Have questions or need more details about our Arabic courses? Our team is here to help you get started.
         </h2>
         <div className="mt-8">
-          <a
-  href="/contact"
-  className="inline-block bg-gradient-to-r from-[#2b2b5c] to-[#4d7abb] hover:from-[#4d7abb] hover:to-[#2b2b5c] text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4">
-
+          <Link
+  to="/contact"
+  className="inline-block bg-gradient-to-r from-[#2b2b5c] to-[#4d7abb] hover:from-[#4d7abb] hover:to-[#2b2b5c] text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4"
+>
   Contact
-</a>
+</Link>
         </div>
       </div>
     </section>

@@ -15,6 +15,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppBot from './components/WhatsAppBot';
 import Preloader from './components/Preloader';
+import ScrollToTop from './components/ScrollToTop';
 
 const Home: React.FC = () => (
   <>
@@ -40,6 +41,7 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-white text-gray-800">
+       <ScrollToTop />
       <Header />
       <main>
         <Routes>

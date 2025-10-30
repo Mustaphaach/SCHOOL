@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const MEMBERSHIP_IMAGES = [
   {
@@ -89,12 +90,12 @@ const Membership: React.FC = () => {
             </p>
           </div>
 
-          <a 
-            href="#" 
-            className="inline-block bg-gradient-to-r from-[#2b2b5c] to-[#4d7abb] hover:from-[#4d7abb] hover:to-[#2b2b5c] text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4"
-          >
-            Start with Us Now
-          </a>
+       <Link
+  to="/contact"
+  className="inline-block bg-gradient-to-r from-[#2b2b5c] to-[#4d7abb] hover:from-[#4d7abb] hover:to-[#2b2b5c] text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-4"
+>
+  Start with Us Now
+</Link>
 
           {/* Credibility Badges */}
           <div className="mt-10 flex justify-center items-center gap-8 flex-wrap text-[#2b2b5c] font-semibold">
